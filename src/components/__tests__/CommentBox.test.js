@@ -23,3 +23,35 @@ it('has a text area and a button', () => {
 //   console.log(component.find("button").length);
 // });
 
+it('has a text area that you can type in', () => {
+  component.find("textarea").simulate('change', {
+    target: {
+      value: 'new comment'
+    }
+  })
+
+  component.update();
+
+  expect(component.find('textarea').prop('value')).toEqual('new comment')
+
+})
+
+
+it('hwhen form is submitted, text area gets emptied', () => {
+  component.find("textarea").simulate('change', {
+    target: {
+      value: 'new comment'
+    }
+  })
+
+  component.update();
+
+  component.find("form").simulate('submit');
+  
+  component.update();
+
+  expect(component.find('textarea').prop('value')).toEqual('')
+
+
+})
+
