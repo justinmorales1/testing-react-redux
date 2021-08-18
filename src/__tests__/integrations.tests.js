@@ -29,8 +29,20 @@ it('can fetch a list of comments and display them', (done) => {
   // Find the fetchCOmments button and click it.
   wrapped.find('.fetch-comments').simulate('click');
   
+  // // We need a tiny delay to handle the moxios request. 
+  // setTimeout(()=> {
+  //   //Running update because we simulated a click so we need to basically rerender the app.
+  //   wrapped.update();
+  //   expect(wrapped.find('li').length).toEqual(2)
+
+  //   //Once done is called them jest knows this test is complete.
+  //   done();
+  //   // Cleaning up after creating an element with a mount function.
+  //   wrapped.unmount();
+  // },100);
+
   // We need a tiny delay to handle the moxios request. 
-  setTimeout(()=> {
+  moxios.wait(()=> {
     //Running update because we simulated a click so we need to basically rerender the app.
     wrapped.update();
     expect(wrapped.find('li').length).toEqual(2)
@@ -39,6 +51,6 @@ it('can fetch a list of comments and display them', (done) => {
     done();
     // Cleaning up after creating an element with a mount function.
     wrapped.unmount();
-  },100);
+  });
 
 })
